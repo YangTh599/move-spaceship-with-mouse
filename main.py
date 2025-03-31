@@ -22,14 +22,17 @@ def init_game():
     return window
 
 # Draw Function to update graphics
-def draw(window):
+def draw(window,bg,player):
     """DRAW FUNCTION | allows screen graphics to be added"""
     #BACKGROUND
-    window.fill(WHITE) # 15
-    
+    # window.fill(WHITE) # 15
+    window.blit(bg, [0,0])
 
     #FOREGROUND
     
+    mouse_pos = pygame.mouse.get_pos()
+
+    window.blit(player, [mouse_pos[0] - player.get_width()//2, mouse_pos[1] - player.get_height() // 2])
 
     #UPDATE DISPLAY
     pygame.display.update()
@@ -47,8 +50,9 @@ def main(): # MAIN FUNCTION
     window = init_game()
     clock = pygame.time.Clock()
     # ADD ALL OBJECTS/CLASSES BELOW HERE
-
-    
+    background_image = pygame.image.load("assets/saturn_family1.jpg").convert()
+    player_image = pygame.image.load("assets/player.png").convert()
+    player_image.set_colorkey(BLACK)
     
     # ADD ALL OBJECTS/CLASSES ABOVE HERE
     run = True
@@ -60,7 +64,7 @@ def main(): # MAIN FUNCTION
         
 
         
-        draw(window) # UPDATES SCREEN
+        draw(window,background_image,player_image) # UPDATES SCREEN
 
     pygame.quit()
     sys.quit()
